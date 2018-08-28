@@ -1,0 +1,103 @@
+React的使用：
+    1、使用<script></script>引入.js 文件来使用React
+    2、通过脚手架工具来编码  （GRUNT GULP Webpack）
+
+脚手架工具： Create-react-app
+脚手架工具安装：
+    1、安装node
+    2、安装 create-react-app
+        npm install -g create-react-app
+    3、构建项目
+        create-react-app todolist
+    4、项目启动
+        cd todolist
+        npm start
+
+
+$ cnpm install -g create-react-app
+$ create-react-app my-app
+$ cd my-app/
+$ npm start
+
+
+项目目录分析    
+package-lock.json       项目依赖的安装包
+yarn.lock           
+
+README.md               项目说明  (可自行编译)
+
+package.json            项目介绍 脚手架生成文件
+
+.gitignore              可以定义git文件上传
+
+
+node_modules
+
+public
+    favicon.ico         图标
+    index.html          html模板
+
+    /*
+    manifest.json      快捷方式等配置
+    */
+
+src     
+    App.js              项目显示内容
+    index.js            整个项目运行的入口文件
+
+
+    /*
+    App.test.js         自动化测试文件
+    registerServiceWorker.js
+    Pwa  达到APP的效果，可以将网页缓存在浏览器中
+    */
+
+
+组件引入
+
+import React, {Component} from 'react';
+等价于
+import React from 'react';
+const Component = React.Component;
+
+
+
+组件模型
+
+/*
+
+组件都是以大写字母开头
+
+类App  继承 Component 的类
+render 函数返回组件模板内容
+export default App;     模板导出语法
+
+*/
+
+import React from 'react';
+
+class App extends React.Component {
+    
+  render() {
+    return (
+      <div>
+        --X
+      </div>
+    );
+  }
+
+}
+
+export default App;
+
+
+在react JSX中补全html代码
+"emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+},
+
+react 占位符  Fragment
+<Fragment></Fragment>
+
+
+react 中的响应式设计思想和时间绑定
