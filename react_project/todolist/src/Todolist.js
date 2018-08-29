@@ -1,44 +1,76 @@
-import React, {Component , Fragment} from 'react';
+import React, { Component , Fragment } from 'react';
+import TodoItem from './TodoItem';
+
+import './style.css';
 
 class Todolist extends Component {
-	//构造函数
+
 	constructor (props) {
-		// 父类继承
 		super(props);
 		this.state = {
 			inputValue:'',
 			list:[]
 		}
+
+		this.handleInputChange = this.handleInputChange.bind(this);
+		this.headleBtnClick = this.headleBtnClick.bind(this);
+		this.headleItemDelete = this.headleItemDelete.bind(this);
 	}
 	
 	render() {
 		return ( 
 			<Fragment>
 				<div>
-					<input type="text" name="" 
+				<label htmlFor='insertArea'>输入内容</label>
+					<input type="text"
+						id = 'insertArea'
+						className = 'input'
 						value = {this.state.inputValue}
-						onChange = {this.handleInputChange.bind(this)}
+						onChange = {this.handleInputChange}
 					/>
-					<input type="button" value="提交"/>
+					<button className = 'inputBut' onClick={this.headleBtnClick}>提交</button>
 				</div>
-				<ul>
-					<li>fasdfsa </li>
-					<li>fasdfsa</li>
-					<li>fdsafdsa</li>
+				<ul className = 'itemUl'>
+					{this.getTodoItem()}
 				</ul>
 			</Fragment>	
 		);
 	}
 
-	handleInputChange(e){
-		// console.log(e.target.value);
-		// console.log(this);
-		//this.state.inputValue = e.target.value;
-		//改变state数据
-		this.setState({
-			inputValue: e.target.value
+	getTodoItem(){
+		return this.state.list.map((item,index) => {
+			return (
+				<TodoItem 
+					key = {index}
+					content = {item} 
+					index = {index}
+					deleteItem = {this.headleItemDelete}
+				/>
+			)
 		})
-		
+	}
+
+	handleInputChange(e){
+		const value = e.target.value;
+		this.setState(() => ({
+			inputValue: value
+		}))
+	}
+
+	headleBtnClick(){
+		this.setState((prevState) => ({
+			// list:[...this.state.list,this.state.inputValue],
+			list:[...prevState.list,prevState.inputValue],
+			inputValue: ''
+		}))
+	}
+
+	headleItemDelete(index){
+		this.setState((prevState) => {
+			const list = [...prevState.list];
+			list.splice(index,1);
+			return {list}
+		})
 	}
 }
 

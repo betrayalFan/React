@@ -96,8 +96,178 @@ export default App;
     "javascript": "javascriptreact"
 },
 
+
 react 占位符  Fragment
 <Fragment></Fragment>
 
 
 react 中的响应式设计思想和时间绑定
+
+        数据
+        constructor (props) {
+            super(props);
+            this.state = {
+                inputValue:''
+            }
+        }
+
+        数据和事件的绑定以及事件中this的指向问题
+        value = {this.state.inputValue}
+        onChange = {this.headleInputChange.bind(this)}
+
+
+        事件中数据的改变
+        this.setState({
+			inputValue: e.target.value
+		})
+
+    react 中的事件和HTML事件绑定的区别
+        事件绑定是大写
+        onClick onChange 
+
+        循环
+        map()
+        循环时需要加key值,每个key值都不一言,用index做key值不好
+
+react 中的增删改查
+    删除   splice
+
+
+JSX 语法
+    1、在JSX中编写代码注释
+        {
+            // 单行注释
+            /*	
+                多行注释
+            */ 
+        }
+    2、大写字母开头 为组件，小写字母开头就是普通的元素
+
+    3、不允许转义
+        dangerouslySetInnerHTML = {{__html:item}}
+
+    4、 <label for='insertArea'>输入内容</label>
+        用for会编译为for循环
+        正确写法
+        <label htmlFor='insertArea'>输入内容</label>
+
+组件的拆分
+父子组件的导出导入
+
+
+父子组件之间的传值
+    父组件 → 子组件    
+            {只能传值，不能修改}
+        ----属性的方式传值  ( 属性 = {属性值} )   
+        ----子组件接受值    ( this.props.属性 )
+
+        
+
+    子组件 → 父组件 
+            {可以修改父组件的数据}
+        ----通过调用父组件的方法来传值
+        ----子组件如何调用父组件的方法修改父组件的数据（不允许直接修改）
+                方法： 将父组件的方法传给子组件，用参数的方法
+                父组件    方法属性名 = {this.方法名}
+                子组件    在子组件方法中调用父组件的方法
+                            ( this.props.方法属性名 )
+
+
+
+
+setState 的使用：
+可以接收一个prevState 的参数  这个参数可以保存修改数据之前的原始数据
+this.setState((prevState) => ({
+    //list:[...this.state.list,this.state.inputValue],
+    list:[...prevState.list,prevState.inputValue],
+    inputValue:''
+}))
+
+
+react 开发的优点
+    申明式开发          ()
+    可以与其他框架并存   (不操作root文件下面DOM)
+    组件化              (组件开发)
+    单项数据流          (父组件向子组件传值,但是子组件不可以改变这个值)
+    视图层框架          (和数据层框架的配合)
+    函数式编程          (自动化测试)
+
+
+
+代码模块触发
+【rconst】
+constructor(props) {
+    super(props)
+    this.state = {
+    }
+}
+
+【imr】
+import React from 'react';
+
+【imrc】
+import React, { Component } from 'react'
+
+【imrcp】
+import PropTypes from 'prop-types'
+
+【imrpc】
+import React, { PureComponent } from 'react';
+
+【imrpcp】
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
+
+【ima】
+import { originalName as alias } from 'module'
+
+【imd】
+import {  } from 'module'
+
+【ime】
+import * as alias from 'module';
+
+【rec】
+import React, { Component } from 'react'
+
+export class template extends Component {
+  render() {
+    return (
+      <div>
+        
+      </div>
+    )
+  }
+}
+
+export default template
+
+
+【recp】
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+
+export class template extends Component {
+  static propTypes = {
+
+  }
+
+  render() {
+    return (
+      <div>
+        
+      </div>
+    )
+  }
+}
+
+export default template
+
+【ren】
+render() {
+  return (
+    <div>
+      
+    </div>
+  )
+}
