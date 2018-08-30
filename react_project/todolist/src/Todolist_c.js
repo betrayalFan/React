@@ -18,13 +18,8 @@ class Todolist extends Component {
 		this.headleItemDelete = this.headleItemDelete.bind(this);
 	}
 	
-	// 在组件即将被挂载(第一次执行)到页面时执行
-	componentWillMount(){
-		console.log('Mounting componentWillMount');
-	}
-	
 	render() {
-		console.log('Mounting Updation render');
+		console.log('render');
 		return ( 
 			<Fragment>
 				<div>
@@ -44,30 +39,7 @@ class Todolist extends Component {
 			</Fragment>	
 		);
 	}
-
-	// 在组件被挂载(第一次执行)到页面之后自动执行
-	componentDidMount(){
-		console.log('Mounting componentDidMount');
-	}
-
-	//在组件更新之前,必须返回一个bool值 true false
-	//返回false,组件不被更新，后面的流程将会终止
-	shouldComponentUpdate (){
-		console.log('Updation shouldComponentUpdate');
-		return true;
-	}
 	
-	// 在组件更新之前,它会自动执行,但是它是在shouldComponentUpdate 之后执行
-	// 如果shouldComponentUpdate返回true则会执行
-	// 返回false,这个函数就不会被执行
-	componentWillUpdate () {
-		console.log('Updation componentWillUpdate');
-	}	
-
-	// 组件更新完成之后会被执行
-	componentDidUpdate(){
-		console.log('Updation componentDidUpdate');
-	}
 
 	getTodoItem(){
 		return this.state.list.map((item,index) => {

@@ -91,7 +91,7 @@ class App extends React.Component {
 export default App;
 
 
-在react JSX中补全html代码
+在react JSX中补全html代码--vscode配置
 "emmet.includeLanguages": {
     "javascript": "javascriptreact"
 },

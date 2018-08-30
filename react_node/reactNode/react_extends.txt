@@ -1,0 +1,197 @@
+React Developer Tools 安装及使用 
+    react 的调试工具    chrome 应用商店 
+
+
+PropTypes   DefaultProps
+    父子组件传值 接受参数时 如何对参数的类型作校验  如何定义参数的默认值
+
+PropTypes 
+    校验参数，可以限制父组件传给子组件的值为什么类型
+    1、引入
+        import PropTypes from 'prop-types'
+    2、设置参数校验
+        TodoItem.propTypes = {
+            test: PropTypes.string.isRequired,
+            content: PropTypes.oneOfType([PropTypes.number,PropTypes.string]),
+            deleteItem: PropTypes.func,
+            index: PropTypes.number
+        }
+DefaultProps 
+    设置默认参数，当父组件传给子组件的值为空或者没有时，给子组件的接受值设置一个默认值
+    1、引入
+        import PropTypes from 'prop-types'
+    2、设置默认接受值
+        TodoItem.defaultProps = {
+            test: 'hello world'
+        }
+
+
+Props State 与 render 函数
+    react 数据驱动的框架  原理:
+        当组件的state或者props发生改变的时候，自己的render函数就会重新执行，render里面的dom会重新渲染，return也会重新更新
+        当父组件的render函数被运行时，它的子组件的render函数都将被运行一次
+
+react 虚拟DOM
+    react实现重新渲染的性能很高，是因为虚拟DOM的原因
+    什么是虚拟DOM
+    1、state 数据
+    2、JSX 模板
+    3、数据 + 模板 结合，生成真实的DOM，来显示
+    4、state 发生改变
+    5、数据 + 模板 结合，生成真实的DOM，替换原始的DOM
+
+    缺陷
+    1、第一次生成一个完整的DOM片段
+    2、第二次生成一个完整的DOM片段
+    3、第二次生成的DOM片段替换第一次生成的DOM片段。非常耗性能
+
+    1、state 数据
+    2、JSX 模板
+    3、数据 + 模板 结合，生成真实的DOM，来显示
+    4、state 发生改变
+    5、数据 + 模板 结合，生成真实的DOM，并不直接替换原始的DOM
+    6、新的DOM(DoucumentFragment) 和原始的DOM作比对，找差异 (DOM做对比，消耗性能)
+    7、找出新的 DOM 发生变化的地方  
+    8、只用新的DOM中改变的地方替换原始的DOM发生改变的地方，别的不动
+
+
+    缺陷：
+    性能的提升并不明显
+    reacr提出了虚拟DOM
+    1、state 数据
+    2、JSX 模板
+    4、数据 + 模板 结合，先生成虚拟DOM(虚拟DOM就是一个JS对象，用它来描述真实的DOM)
+    ['div',{id:'box'},['span',{},'item']]
+    3、然后使用虚拟DOM的结构生成真实的DOM，来显示
+    <div id="box"><span>item</span></div>
+    5、state 发生了变化
+    6、数据 + 模板 结合，生成了新的虚拟DOM
+    ['div',{id:'box'},['span',{},'hello item']]
+    7、比较原始虚拟DOM和新的虚拟DOM的区别(JS对象的比对，不怎么消耗性能)
+    8、直接操作DOM，改变新的虚拟DOM需要改变的地方
+
+    虚拟DOM JS保存
+    return React.createElement('div',{},'item');
+    参数1：标签元素
+    参数2：标签属性
+    参数3：标签包裹的内容
+    return React.createElement(参数1，参数2，参数3);
+
+虚拟DOM的优点：
+    1、性能提升
+    2、它使得跨端应用得以实现。react Native
+
+虚拟DOM的Diff算法
+    新的虚拟DOM 和原始的DOM 比对时，使用的算法就是Diff算法
+    Diff算法(setStare异步，提高性能)
+    虚拟DOM的比对是同层虚拟DOM比对，如果第一层比对发现有改变，则原始的虚拟DOM全部清空，虚拟DOM层的所有数据则全部重新渲染
+    比对时，也会有key值的比对，所以key值的稳定性很重要，在可以不使用index做key值时，就尽量不要使用index做key值
+
+React 中 ref 的使用
+    ref 指向当前的DOM元素(不支持直接操作DOM)
+    ref = {(input) => {this.input = input}}
+
+    setState 第二个参数
+    页面DOM获取不及时是因为setState是异步加载，所以如果需要在页面加载完成之后执行代码，则需要将事件写在setState的第二个参数(函数)中
+    this.setState((prevState) => ({
+        list:[...prevState.list,prevState.inputValue],
+        inputValue: ''
+    }),() => {
+        //setStare异步执行成功之后执行的函数
+    })
+
+
+
+React中的生命周期函数
+
+    生命周期函数是指在某一时刻组件会自动调用执行的函数
+    √ render 在setState数据发生变化的时候，组件会自动调用render
+    × constructor // ES6定义的(不是react独有的生命周期函数) 在组件创建成功的时候会被自动调用
+
+    Initialization
+        setup props and state
+    
+    Mounting(挂载流程)
+
+        1、componentWillMount     
+            在组件即将被挂载(第一次执行)到页面时执行
+
+        2、render
+
+        3、componentDidMount       
+            在组件被挂载(第一次执行)到页面之后自动执行
+
+    Updation(更新流程 props 或者 states 发生变化时)
+
+        props
+            不同：
+            1、componentWillReceiveProps
+                当一个组件从父组件接受参数
+                (只要父组件的render函数被重新执行了，子组件的这个生命周期函数就会被执行)
+                如果这个组件第一次存在于父组件中，不会执行
+                如果这个组件之前已经存在于父组件中，才会执行
+
+            
+            2、shouldComponentUpdate       
+                在组件更新之前,必须返回一个bool值 true false
+                返回false,组件不被更新，后面的流程将会终止
+                                        
+            --- true 
+
+            
+            3、componentWillUpdate
+                在组件更新之前,它会自动执行,但是它是在shouldComponentUpdate 之后执行
+                如果shouldComponentUpdate返回true则会执行,返回false,这个函数就不会被执行   
+
+            4、render
+
+            
+            5、componentDidUpdate
+                组件更新完成之后会被执行
+
+        states
+            1、shouldComponentUpdate       
+            ---- true
+            2、componentWillUpdate
+            3、render
+            4、componentDidUpdate
+
+    Unmounting
+        componentWillUnmount
+            当这个组件即将被从页面剔除的时候，会被执行
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
