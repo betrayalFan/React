@@ -1,0 +1,23 @@
+Redux
+    Redux = Reducer + Flux
+    Flux 原始的辅助react使用的框架
+    react 是视图层的框架
+    做大型的项目，需要数据层的框架配合 --- redux
+
+Redux工作流程
+    
+Redux todolist
+    UI框架  
+    Ant Design 
+        ant design的安装
+            $ npm install antd --save
+
+        ant design css的引入
+            import 'antd/dist/antd.css';
+        ant design 框架的引入
+            import { Input, Button, List } from 'antd';
+
+        ant design的使用
+            Show Code
+
+            $ ssh-keygen -t rsa -C "3219699854@qq.com"

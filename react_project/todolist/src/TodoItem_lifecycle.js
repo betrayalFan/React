@@ -8,28 +8,15 @@ class TodoItem extends Component{
         this.headleClick = this.headleClick.bind(this);
     }
 
-    // 性能提升
-    shouldComponentUpdate (nextProps, nextState) {
-        // nextProps    
-        // nextState
-        if(nextProps.content !== this.props.content){
-            return true;
-        }else{
-            return false;
-        }
-    }
-    
-    
-
     render(){
-        // console.log('child render');
-        const { content } = this.props;
+        console.log('child render');
+        const { test , content } = this.props;
         return(
             <li 
                 onClick = {this.headleClick} 
                 key = {this.props.index}
             >
-               {content}
+                {test} -- {content}
             </li>
         )
     }
@@ -39,6 +26,13 @@ class TodoItem extends Component{
         // 解构赋值
         const { deleteItem , index} = this.props;
         deleteItem(index);
+    }
+
+    componentWillReceiveProps () {
+		console.log('child componentWillReceiveProps');
+    }
+    componentWillUnmount(){
+        console.log('child componetWillUnmount');
     }
 }
 
@@ -50,9 +44,15 @@ class TodoItem extends Component{
     则设置 test 的默认值
 */
 TodoItem.propTypes = {
+    test: PropTypes.string.isRequired,
     content: PropTypes.oneOfType([PropTypes.number,PropTypes.string]),
     deleteItem: PropTypes.func,
     index: PropTypes.number
+}
+
+// 默认值设置
+TodoItem.defaultProps = {
+    test: 'hello world'
 }
 
 export default TodoItem;

@@ -1,0 +1,43 @@
+React 中的动画
+    1、控制类来控制页面的样式动画
+    2、@keyframs 定义动画
+        @keyframes animationNane{
+
+        }
+        动画名称-动画时间-动画播放速度设置-动画延迟时间-动画播放次数-动画播放方向-动画保持的状态（forwards使动画保持最后一帧的样式）
+        animation: name duration timing-function delay iteration-count direction fill-mode;
+
+    3、react-transition-group实现动画
+        1、react-transition-group 插件的安装
+            $ npm install react-transition-group --save
+
+        2、引入插件 CSSTransition
+            import { CSSTransition } from 'react-transition-group'; 
+        HTML
+            <CSSTransition
+                in={this.state.show}    定义动画显示的条件
+                timeout={1000}          定义动画执行时间
+                classNames="fade"       定义动画类的前缀
+                unmountOnExit           定义影藏的时候删除DOM
+                onEntered = {(el) => {  定义动画样式的钩子函数
+                    el.style.color = 'blue'
+                }}
+                appear = {true}         页面刷新开始动画
+            >
+            </CSSTransition>
+
+        CSS ---- fade- classNames 定义的前缀
+            .fade-enter         入场动画
+            .fade-enter-active  入场动画执行的第二个瞬间
+            .fade-enter-done    入场动画完成之后
+
+            fade-exit           出厂动画
+            fade-exit-active    出厂动画执行的第二个瞬间
+            fade-exit-done      出厂动画完成之后
+
+    
+    4、给多个DOM元素添加动画
+        引入插件
+        import { TransitionGroup } from 'react-transition-group'; 
+    
+    HTML

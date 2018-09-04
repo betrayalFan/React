@@ -13,6 +13,8 @@ React的使用：
         cd todolist
         npm start
 
+淘宝镜像安装
+
 
 $ cnpm install -g create-react-app
 $ create-react-app my-app

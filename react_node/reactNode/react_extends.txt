@@ -161,7 +161,39 @@ React中的生命周期函数
             当这个组件即将被从页面剔除的时候，会被执行
 
 
+React 生命周期函数的应用场景
+    所有的生命周期钩子函数都可以不存在，但是render函数必须存在
 
+    性能提升 shouldComponentUpdate  生命周期函数
+    参数1：nextProps    接下来props的变化
+    参数2：nextState    接下来state的变化
+    先判断props是否发生了改变，如果改变则返回true继续执行别的生命周期函数
+    如果没有改变，则返回false
+    shouldComponentUpdate (nextProps, nextState) {
+        if(nextProps.content !== this.props.content){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+    React 中 ajax 请求的位置
+        可以将react 中 ajax 的请求写在
+        render 函数中，或者
+        componentDidMount 生命构造函数中（建议）
+    
+    React 中 ajax 发送请求的插件
+        $ npm add axios
+
+
+charles 抓包
+    本地数据模拟(实现本地数据mock)
+    Tools - Map Loaclhost 
+        Protocol:http
+        Host:loaclhost
+        Port:3000
+        Path:/api/todolist
 
 
 

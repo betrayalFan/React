@@ -1,10 +1,12 @@
 import React, { Component , Fragment } from 'react';
 import TodoItem from './TodoItem';
+import axios from 'axios';
 
-import './todolist.css';
 
+import './style.css';
 
 class Todolist extends Component {
+
 	constructor (props) {
 		super(props);
 		this.state = {
@@ -36,7 +38,26 @@ class Todolist extends Component {
 			</Fragment>	
 		);
 	}
+
+	// 只能被执行一次，只需要请求一次接口
+	// Ajax 请求
+	componentDidMount () {
+		axios.get('/api/todolist')
+			.then((res) => {
+				// 请求成功
+				console.log('succ')
+				console.log(res);
+				this.setState(() => ({
+					list: [...res.data]
+				}))
+			})
+			.catch(() => {
+				// 请求失败
+				console.log('error');
+			})
+	}
 	
+
 	getTodoItem(){
 		return this.state.list.map((item,index) => {
 			return (
